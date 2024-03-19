@@ -1,85 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalist SaaS Website</title>
+    <title>Salient-Like Design</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Additional custom styles */
-        .gradient-bg {
-            background: linear-gradient(to right, #4a90e2, #7ec8e3);
+        /* Custom Styles */
+        .full-screen {
+            min-height: calc(100vh - 4rem); /* Subtract the height of the navigation bar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
         }
-        .btn-primary {
-            background-color: #4a90e2;
+
+        .full-screen-text {
+            text-align: center;
+            color: #333;
         }
-        .btn-primary:hover {
-            background-color: #3579bd;
+
+        /* Center align buttons in header */
+        .nav-buttons {
+            flex: 1;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-gray-100">
+
+<body class="font-sans bg-gray-100">
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <a href="#" class="text-2xl font-semibold text-gray-800">YourSaaS</a>
-                <ul class="flex space-x-4">
-                    <li><a href="#" class="text-gray-600 hover:text-gray-800">Home</a></li>
-                </ul>
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <div>
+                <a href="#" class="text-2xl font-bold text-gray-800">SaaS Tools</a>
+            </div>
+            <div class="hidden lg:flex items-center space-x-4 nav-buttons">
+                <a href="#" class="text-gray-500 hover:text-gray-800">Home</a>
+                <a href="#" class="text-gray-500 hover:text-gray-800">Features</a>
+                <a href="#" class="text-gray-500 hover:text-gray-800">About</a>
+                <a href="#" class="text-gray-500 hover:text-gray-800">Contact</a>
+            </div>
+            <div class="flex lg:hidden">
+                <button class="text-gray-500 hover:text-gray-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="py-16 text-center gradient-bg text-white">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Empower Your Business with Our Tools</h1>
-            <p class="text-lg md:text-xl mb-8">Unlock the potential of your business with our suite of powerful online tools.</p>
-            <a href="#" class="btn-primary inline-block px-8 py-3 rounded-full shadow-lg font-semibold transition duration-300 ease-in-out hover:bg-blue-700">Get Started</a>
+<!-- Full Screen Header -->
+<section class="full-screen bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl lg:text-6xl font-bold text-gray-800 mb-6 full-screen-text">Welcome to SaaS Tools</h1>
+            <p class="text-lg lg:text-xl text-gray-600 full-screen-text">Supercharge your productivity with our suite of online tools.</p>
+            <p class="text-gray-600 text-lg mt-4 full-screen-text">Built for developers, by developers.</p>
+            <div class="flex justify-center mt-8"> <!-- Center align buttons -->
+                <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full text-lg mr-4 hover:bg-blue-600 transition duration-300">Get Started</a>
+                <a href="#" class="bg-gray-200 text-gray-800 py-2 px-6 rounded-full text-lg hover:bg-gray-300 transition duration-300">Learn More</a>
+            </div>
         </div>
-    </header>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section class="py-16">
+
+    <!-- Main Content -->
+    <section class="py-20">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white rounded-lg shadow-md p-8">
-                    <h3 ahref="https://github.com/davidjenner/Unicorn" class="text-xl font-semibold mb-4">Website Scanner</h3>
-                    <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus lectus id ultricies suscipit.</p>
-                </div>
-                <!-- Feature 2 -->
-                <div class="bg-white rounded-lg shadow-md p-8">
-                    <h3 class="text-xl font-semibold mb-4">Virtual Desktop</h3>
-                    <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus lectus id ultricies suscipit.</p>
-                </div>
-                <!-- Feature 3 -->
-                <div class="bg-white rounded-lg shadow-md p-8">
-                    <h3 class="text-xl font-semibold mb-4">Feature 3</h3>
-                    <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus lectus id ultricies suscipit.</p>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tool 1 -->
+                <a href="https://github.com/davidjenner/Unicorn" class="bg-white shadow-lg rounded-lg overflow-hidden block hover:shadow-xl transition duration-300">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Website Scanner</h2>
+                        <p class="text-gray-600 mb-4">A tool for scanning WordPress websites</p>
+                        <p class="text-gray-600">Version: 1.0.0</p>
+                    </div>
+                </a>
+
+                <!-- Tool 2 -->
+                <a href="https://codepen.io/david-jenner/pen/BaEKBRN" class="bg-white shadow-lg rounded-lg overflow-hidden block hover:shadow-xl transition duration-300">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Outseek - Fake Outlook</h2>
+                        <p class="text-gray-600 mb-4">This is designed to simulate a work computer for when you're unemployed and want to 'feel' employed</p>
+                        <p class="text-gray-600">Version: 1.0.0</p>
+                    </div>
+                </a>
+
+                <!-- Tool 3 -->
+                <a href="https://github.com/davidjenner/wp-image-compression-plugin" class="bg-white shadow-lg rounded-lg overflow-hidden block hover:shadow-xl transition duration-300">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">WordPress Image Compression Plugin</h2>
+                        <p class="text-gray-600 mb-4">This is a tool to add to WordPress that allows you to compress images on the website like TinyPNG</p>
+                        <p class="text-gray-600">Version: 1.0.0</p>
+                    </div>
+                </a>
+                <!-- Add more tools as needed -->
             </div>
         </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="bg-gray-800 text-white py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-semibold mb-4">Ready to get started?</h2>
-            <p class="text-lg mb-8">Unlock the full potential of your business today.</p>
-            <a href="#" class="btn-primary inline-block px-8 py-3 rounded-full shadow-lg font-semibold transition duration-300 ease-in-out hover:bg-blue-700">Get Started</a>
+    <!-- Call to Action -->
+    <section class="bg-gray-800 text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-4">Ready to get started?</h2>
+                <p class="text-lg mb-8">Join thousands of satisfied users who are already improving their workflow with our tools.</p>
+                <a href="#" class="bg-blue-500 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-600 transition duration-300">Sign Up for Free</a>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2024 YourSaaS. All rights reserved.</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+    <!-- Subscription Sign-up -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-8">Choose the Plan That's Right for You</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden flex-1">
+                        <div class="py-8 px-6">
+                            <h3 class="text-2xl font-bold mb-4">Free Plan</
+								<h3 class="text-2xl font-bold mb-4">Free Plan</h3>
+								<p class="text-lg mb-4">For individuals getting started</p>
+								<ul class="text-lg mb-4">
+									<li>Basic features</li>
+									<li>Limited usage</li>
+									<li>Community support</li>
+								</ul>
+								<a href="#" class="bg-blue-500 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-600 transition duration-300">Sign Up for Free</a>
+							</div>
+						</div>
+						<div class="bg-white shadow-lg rounded-lg overflow-hidden flex-1">
+							<div class="py-8 px-6">
+								<h3 class="text-2xl font-bold mb-4">Premium Plan</h3>
+								<p class="text-lg mb-4">For teams and businesses</p>
+								<ul class="text-lg mb-4">
+									<li>Advanced features</li>
+									<li>Unlimited usage</li>
+									<li>Priority support</li>
+								</ul>
+								<a href="#" class="bg-blue-500 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-600 transition duration-300">Upgrade to Premium</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+	
+		<!-- Footer -->
+		<footer class="bg-gray-800 text-white py-12">
+			<div class="container mx-auto px-4 text-center">
+				<p>&copy; 2024 SaaS Tools. All rights reserved.</p>
+			</div>
+		</footer>
+	
+	</body>
+	
+	</html>
+	
