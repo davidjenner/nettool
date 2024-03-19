@@ -27,6 +27,24 @@
             display: flex;
             justify-content: center;
         }
+	        /* Animation for subtle color change */
+    @keyframes subtleColorChange {
+        0% {
+            background-color: #f0f0f0; /* Initial color */
+        }
+        50% {
+            background-color: #e0e0e0; /* Intermediate color */
+        }
+        100% {
+            background-color: #f0f0f0; /* Final color */
+        }
+    }
+
+    /* Apply animation to header */
+    .full-screen {
+        animation: subtleColorChange 8s ease-in-out infinite;
+    }
+
     </style>
 </head>
 
@@ -68,7 +86,6 @@
         </div>
     </div>
 </section>
-
 
     <!-- Main Content -->
     <section class="py-20">
