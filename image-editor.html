@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Image Editor</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    /* Dark theme */
+    body {
+        background-color: #222;
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Styling for the navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+    }
+    .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .navbar-links {
+        display: flex;
+        gap: 20px;
+    }
+    .navbar-links a {
+        color: #fff;
+        text-decoration: none;
+    }
+    /* Styling for the editor container */
+    .editor-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 20px;
+        position: relative;
+    }
+    /* Styling for the toolbar */
+    .toolbar {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .toolbar button {
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: transparent;
+        color: #fff;
+        font-size: 20px;
+    }
+    .toolbar button:hover {
+        background-color: #555;
+    }
+    /* Styling for the color palettes */
+    .color-palettes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .color-palette {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    /* Styling for the file input */
+    .file-input {
+        display: none;
+    }
+    .upload-button {
+        padding: 10px 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+    }
+    .upload-button:hover {
+        background-color: #0056b3;
+    }
+    /* Styling for layers */
+    .layer {
+        margin-bottom: 5px;
+    }
+    /* Styling for canvas */
+    #canvas {
+        border: 2px dashed #ccc;
+    }
+    /* Styling for drag overlay */
+    .drag-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        color: #333;
+    }
+    /* Styling for shape menu */
+    .shape-menu {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        background-color: #333;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+    .shape-menu button {
+        padding: 5px 10px;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        font-size: 16px;
+        width: 100%;
+        text-align: left;
+    }
+    .shape-menu button:hover {
+        background-color: #555;
+    }
+</style>
+</head>
+<body>
+<div class="navbar">
+    <div class="navbar-brand">Advanced Image Editor</div>
+    <div class="navbar-links">
+        <a href="#">Login</a>
+        <button id="onedrive"><i class="fab fa-windows"></i></button>
+        <button id="save"><i class="fas fa-save"></i></button>
+    </div>
+</div>
+<div class="editor-container">
+    <div class="toolbar">
+        <button id="apply-filter"><i class="fas fa-adjust"></i></button>
+        <button id="add-text"><i class="fas fa-font"></i></button>
+        <button id="shape-menu-button"><i class="fas fa-shapes"></i></button>
+        <button id="crop-image"><i class="fas fa-crop-alt"></i></button>
+        <button id="resize-image"><i class="fas fa-expand-arrows-alt"></i></button>
+        <button id="rotate-image"><i class="fas fa-undo-alt"></i></button>
+        <button id="flip-image"><i class="fas fa-exchange-alt"></i></button>
+    </div>
+    <div class="shape-menu" id="shape-menu">
+        <button id="shape-rect">Rectangle</button>
+        <button id="shape-circle">Circle</button>
+        <button id="shape-triangle">Triangle</button>
+        <!-- Add more shapes here -->
+    </div>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <label for="file-input" class="upload-button">Upload Image</label>
+    <input type="file" accept="image/*" class="file-input" id="file-input">
+    <div class="color-palettes">
+        <div class="color-palette" style="background-color: #ff0000;"></div>
+        <div class="color-palette" style="background-color: #00ff00;"></div>
+        <div class="color-palette" style="background-color: #0000ff;"></div>
+        <div class="color-palette" style="background-color: #ffff00;"></div>
+        <div class="color-palette" style="background-color: #ff00ff;"></div>
+        <div class="color-palette" style="background-color: #00ffff;"></div>
+    </div>
+    <div class="drag-overlay">
+        Drop Image Here
+    </div>
+</div>
+<div id="layer-list"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+<script>
+    // Initialize Fabric.js canvas
+    const canvas = new fabric.Canvas('canvas');
+    let layerIndex = 0;
+
+    // Function to apply a filter
+    document.getElementById('apply-filter').addEventListener('click', function() {
+        const filter = new fabric.Image.filters.Grayscale();
+        canvas.getActiveObject().filters.push(filter);
+        canvas.getActiveObject().applyFilters();
+        canvas.renderAll();
+    });
+
+    // Function to add text
+    document.getElementById('add-text').addEventListener('click', function() {
+        const text = new fabric.Textbox('Type your text here', {
+            left: 100,
+            top: 100,
+            fill: 'black',
+            fontFamily: 'Arial', // Change font family here
+            layerIndex: ++layerIndex
+        });
+        canvas.add(text);
+        addLayer(text);
+    });
+
+    // Function to open/close shape menu
+    document.getElementById('shape-menu-button').addEventListener('click', function() {
+        const shapeMenu = document.getElementById('shape-menu');
+        shapeMenu.style.display = shapeMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Function to close shape menu when clicking outside of it
+    document.body.addEventListener('click', function(event) {
+        const shapeMenu = document.getElementById('shape-menu');
+        if (!shapeMenu.contains(event.target) && event.target.id !== 'shape-menu-button') {
+            shapeMenu.style.display = 'none';
+        }
+    });
+
+    // Function to add rectangle
+    document.getElementById('shape-rect').addEventListener('click', function() {
+        const rect = new fabric.Rect({
+            left: 100,
+            top: 100,
+            width: 100,
+            height: 100,
+            fill: 'red',
+            layerIndex: ++layerIndex
+        });
+        canvas.add(rect);
+        addLayer(rect);
+    });
+
+    // Function to add circle
+    document.getElementById('shape-circle').addEventListener('click', function() {
+        const circle = new fabric.Circle({
+            left: 100,
+            top: 100,
+            radius: 50,
+            fill: 'blue',
+            layerIndex: ++layerIndex
+        });
+        canvas.add(circle);
+        addLayer(circle);
+    });
+
+    // Function to add triangle
+    document.getElementById('shape-triangle').addEventListener('click', function() {
+        const triangle = new fabric.Triangle({
+            left: 100,
+            top: 100,
+            width: 100,
+            height: 100,
+            fill: 'green',
+            layerIndex: ++layerIndex
+        });
+        canvas.add(triangle);
+        addLayer(triangle);
+    });
+
+    // Function to change fill color of shapes
+    document.querySelectorAll('.color-palette').forEach(function(palette) {
+        palette.addEventListener('click', function() {
+            const selectedShape = canvas.getActiveObject();
+            if (selectedShape && (selectedShape.type === 'rect' || selectedShape.type === 'circle' || selectedShape.type === 'triangle')) {
+                selectedShape.set('fill', this.style.backgroundColor);
+                canvas.renderAll();
+            }
+        });
+    });
+
+    // Function to add a layer
+    function addLayer(object) {
+        const layerList = document.getElementById('layer-list');
+        const layerItem = document.createElement('div');
+        layerItem.classList.add('layer');
+        layerItem.textContent = `Layer ${object.layerIndex}`;
+        layerList.appendChild(layerItem);
+    }
+
+    // Function to save the canvas as an image
+    document.getElementById('save').addEventListener('click', function() {
+        const dataURL = canvas.toDataURL({ format: 'png', quality: 1 });
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'image.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    // Function to handle image upload
+    document.getElementById('file-input').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                const fabricImg = new fabric.Image(img, {
+                    left: 100,
+                    top: 100,
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height,
+                    layerIndex: ++layerIndex
+                });
+                canvas.add(fabricImg);
+                addLayer(fabricImg);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // Function to handle drag and drop of images
+    document.addEventListener('dragover', function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('drop', function(event) {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                const fabricImg = new fabric.Image(img, {
+                    left: event.clientX - canvas.getBoundingClientRect().left,
+                    top: event.clientY - canvas.getBoundingClientRect().top,
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height,
+                    layerIndex: ++layerIndex
+                });
+                canvas.add(fabricImg);
+                addLayer(fabricImg);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // Function to handle OneDrive file open
+    document.getElementById('onedrive').addEventListener('click', function() {
+        // Add OneDrive file open functionality here
+        alert("OneDrive file open functionality will be implemented here.");
+    });
+</script>
+</body>
+</html>
