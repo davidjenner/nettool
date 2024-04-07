@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathing Exercise Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+          margin-top:50px;
+            font-family: 'Stylish', 'Ubuntu', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden; /* Hide overflowing content */
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 10;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none; /* Allow interaction with elements behind it */
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+ .play-button {
+    width: 120px;
+    height: 60px;
+    background-color: #404040; /* Dark grey */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    bottom: 140px; /* Adjusted position */
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    clip-path: polygon(0% 0%, 90% 0%, 95% 50%, 100% 100%, 5% 100%, 0% 50%); /* Wobbly shape */
+    transition: transform 0.3s ease; /* Added transition for smoother animation */
+}
+
+        .play-icon {
+            width: 40px;
+            height: 40px;
+            fill: #fff;
+        }
+
+        .play-button:hover {
+            background-color: #333333; /* Darken on hover */
+        }
+
+        .quote {
+            font-size: 1em;
+            color: #333; /* Dark text color */
+            top:60px;
+            margin-top: 60px; /* Adjusted margin */
+            position: relative; /* Added */
+            z-index: 1; /* Added */
+        }
+
+        .checklist {
+            margin-top: 80px; /* Adjusted margin */
+            display: flex;
+            justify-content: center;
+            position: relative; /* Added */
+            z-index: 1; /* Added */
+        }
+
+        .checkbox {
+            margin-right: 20px;
+        }
+
+        @keyframes wobble {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            100% {
+                transform: rotateZ(3deg);
+            }
+        }
+
+        .wobble-animation {
+            animation: wobble 1s infinite alternate;
+        }
+      .airtable-embed{
+        margin-top: 60px;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <h1 class="text-3xl font-bold text-orange-500 mb-4">Breathing Exercise Tool</h1>
+        <p class="text-lg text-gray-600 mb-6">Follow the instructions below to practice deep breathing and reduce stress:</p>
+        <div id="counter" class="text-4xl font-bold text-orange-500 mb-8">Ready to start<br></div>
+        <div id="playButton" class="play-button" onclick="toggleBreathing()">
+            <svg class="play-icon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
+        </div>
+
+        <div id="quote" class="quote"></div>
+
+        <div class="checklist">
+            <div class="checkbox">
+                <label for="see">See:</label>
+                <input type="checkbox" id="see">
+            </div>
+            <div class="checkbox">
+                <label for="touch">Touch:</label>
+                <input type="checkbox" id="touch">
+            </div>
+            <div class="checkbox">
+                <label for="smell">Smell:</label>
+                <input type="checkbox" id="smell">
+            </div>
+            <div class="checkbox">
+                <label for="taste">Taste:</label>
+                <input type="checkbox" id="taste">
+            </div>
+            <div class="checkbox">
+                <label for="hear">Hear:</label>
+                <input type="checkbox" id="hear">
+            </div>
+        </div>
+      
+      <br>
+      <p>Made by David Jenner : 2024 | Contribute on: <a href="https://codepen.io/david-jenner/pen/JjVWQZy">CodePen</a> / 
+        <a href="https://github.com/davidjenner/relax/tree/main">Github</a>
+      </p>
+    </div>
+  
+  <iframe class="airtable-embed" src="https://airtable.com/embed/appCoOr0EuaYd77cG/shrxQKYe5EZplTaud?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+
+    <audio id="peacefulSound" controls>
+        <source src="https://on.soundcloud.com/SPwLaryHJ8ta6dbU9" preload="auto" loop type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+  
+  <!-- I have an audo link here too 
+https://github.com/davidjenner/relax/blob/main/Guided30Mins.mp3 -->
+
+    <script>
+        const counterElement = document.getElementById('counter');
+        const peacefulSound = document.getElementById('peacefulSound');
+        const quoteElement = document.getElementById('quote');
+        const playButton = document.getElementById('playButton');
+        const quotes = [
+            "Take a deep breath and let it go.",
+            "Inhale the future, exhale the past.",
+            "The present moment is all we ever have.",
+            "Breathe in peace, breathe out tension.",
+            "Every breath is a new beginning.",
+            "Be here now.",
+            "Inhale courage, exhale fear.",
+            "Find the calm in the chaos.",
+            "Trust the timing of your life.",
+            "Inhale confidence, exhale doubt."
+        ];
+
+        let breathingInterval = null;
+        let isBreathing = false;
+
+        function toggleBreathing() {
+            if (isBreathing) {
+                clearInterval(breathingInterval);
+                peacefulSound.pause();
+                playButton.classList.remove('wobble-animation'); // Remove wobble animation
+                playButton.style.left = '50%'; // Reset button position
+                playButton.innerHTML = `<svg class="play-icon" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"></path>
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                </svg>`;
+            } else {
+                startBreathing();
+                peacefulSound.play();
+                playButton.classList.add('wobble-animation'); // Add wobble animation
+                playButton.style.left = 'calc(50% - 60px)'; // Adjust button position
+                playButton.innerHTML = `<svg class="play-icon" viewBox="0 0 24 24">
+                    <path d="M6 6h12v12H6z"></path>
+                </svg>`;
+            }
+            isBreathing = !isBreathing;
+        }
+
+        function startBreathing() {
+            let inhaleTime = 5; // Inhale for 5 seconds
+            let exhaleTime = 7; // Exhale for 7 seconds
+
+            counterElement.innerText = `Inhale`;
+
+            breathingInterval = setInterval(function () {
+                inhaleTime--;
+
+                if (inhaleTime >= 0) {
+                    counterElement.innerText = `Inhale: ${inhaleTime}s`;
+                } else {
+                    exhaleTime--;
+                    counterElement.innerText = `Exhale: ${exhaleTime}s`;
+
+                    if (exhaleTime === 0) {
+                        inhaleTime = 5;
+                        exhaleTime = 7;
+                        counterElement.innerText = `Inhale`;
+                    }
+                }
+            }, 1000);
+        }
+
+        function getRandomQuote() {
+            return quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        function displayRandomQuote() {
+            quoteElement.innerText = getRandomQuote();
+        }
+
+        // Display a random quote when the page loads
+        displayRandomQuote();
+    </script>
+</body>
+
+</html>
