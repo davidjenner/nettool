@@ -12,7 +12,7 @@
             src: url('OpenDyslexic-Regular.otf') format('opentype');
         }
         body {
-           /*  font-family: "OpenDyslexic", Arial, sans-serif; /* Fallback font */
+            /* font-family: "OpenDyslexic", Arial, sans-serif; /* Fallback font */
             background-color: #fff;
             color: #000;
             transition: background-color 0.5s, color 0.5s;
@@ -97,7 +97,7 @@
             var words = inputText.split(" ");
             var boldedWords = words.map(word => {
                 var halfLength = Math.floor(word.length / 2);
-                return `<span class="font-bold">${word.slice(0, halfLength)}</span>${word.slice(halfLength)}`;
+                return '<span style="font-weight: bold">' + word.slice(0, halfLength) + '</span>' + word.slice(halfLength);
             });
             var resultText = boldedWords.join(" ");
             var outputArea = document.getElementById("output");
