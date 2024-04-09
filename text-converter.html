@@ -97,29 +97,33 @@
             var inputText = document.getElementById("inputText").value;
             var outputArea = document.getElementById("output");
 
-            outputArea.innerText = inputText;
+            outputArea.innerHTML = inputText;
             outputArea.style.display = "block";
             outputArea.style.fontFamily = "'OpenDyslexic', sans-serif"; // Apply OpenDyslexic font
         }
 
         function convertToADHD() {
             var inputText = document.getElementById("inputText").value;
-            var words = inputText.split(" ");
-            var boldedWords = words.map(word => {
-                var halfLength = Math.floor(word.length / 2);
-                return `<span class="font-bold">${word.slice(0, halfLength)}</span>${word.slice(halfLength)}`;
+            var paragraphs = inputText.split("\n");
+            var resultText = paragraphs.map(paragraph => {
+                var words = paragraph.split(" ");
+                var boldedWords = words.map(word => {
+                    var halfLength = Math.floor(word.length / 2);
+                    return `<span class="font-bold">${word.slice(0, halfLength)}</span>${word.slice(halfLength)}`;
+                });
+                return boldedWords.join(" ");
             });
-            var resultText = boldedWords.join(" ");
             var outputArea = document.getElementById("output");
-            outputArea.innerHTML = resultText;
+            outputArea.innerHTML = resultText.join("<br>");
             outputArea.style.display = "block";
             outputArea.style.fontFamily = "'Open Sans', sans-serif"; // Apply Open Sans font
         }
 
         function togglePastel() {
-            document.body.classList.toggle("pastel");
-            document.getElementById("inputText").classList.toggle("pastel");
-            document.getElementById("output").classList.toggle("pastel");
+            var pastelClasses = ["pastel-bg-1", "pastel-bg-2", "pastel-bg-3"];
+            document.body.classList.toggle(pastelClasses[Math.floor(Math.random() * pastelClasses.length)]);
+            document.getElementById("inputText").classList.toggle(pastelClasses[Math.floor(Math.random() * pastelClasses.length)]);
+            document.getElementById("output").classList.toggle(pastelClasses[Math.floor(Math.random() * pastelClasses.length)]);
             document.body.classList.remove("dark-mode");
         }
 
