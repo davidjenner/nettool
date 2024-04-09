@@ -98,8 +98,7 @@
             var paragraphs = inputText.split("\n");
             var outputArea = document.getElementById("output");
             var formattedText = paragraphs.map(paragraph => {
-                var words = paragraph.split(" ");
-                return `<p style="font-family: 'OpenDyslexic', sans-serif;">${paragraph}</p>`;
+                return `<p style="font-family: 'OpenDyslexic', sans-serif;">${paragraph}</p><br>`;
             });
             outputArea.innerHTML = formattedText.join("");
             outputArea.style.display = "block";
