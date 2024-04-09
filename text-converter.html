@@ -9,7 +9,7 @@
     <style>
         @font-face {
             font-family: 'OpenDyslexic';
-            src: url('https://github.com/davidjenner/nettool/blob/main/OpenDyslexic-Regular.otf') format('opentype');
+            src: url('OpenDyslexic-Regular.otf') format('opentype');
         }
         body {
             font-family: "OpenDyslexic", Arial, sans-serif; /* Fallback font */
@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="max-w-xl mx-auto my-8 bg-white shadow-xl rounded-lg p-8">
-        <h1 class="text-2xl font-bold mb-4">OpenDyslexic Text Converter</h1>
+        <h1 class="text-2xl font-bold mb-4">Accessibility Text Converter</h1>
         <textarea id="inputText" class="w-full h-32 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-OpenDyslexic mb-4"></textarea>
         <div class="flex flex-wrap gap-2 mb-4">
             <button onclick="pasteFromClipboard()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-clipboard mr-2"></i> Paste from Clipboard</button>
