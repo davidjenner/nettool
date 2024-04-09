@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Text Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'OpenDyslexic';
+            src: url('https://github.com/davidjenner/nettool/blob/main/OpenDyslexic-Regular.otf') format('opentype');
+        }
+        body {
+            font-family: "OpenDyslexic", Arial, sans-serif; /* Fallback font */
+            background-color: #fff;
+            color: #000;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .bg-blue-500 {
+            background-color: #3b82f6 !important; /* Blue color for buttons */
+        }
+        .bg-blue-500:hover {
+            background-color: #2563eb !important; /* Darker shade of blue on hover */
+        }
+        .dark-mode {
+            background-color: #000;
+            color: #fff;
+        }
+        .dark-mode .bg-white {
+            background-color: #000 !important;
+        }
+        .dark-mode .text-blue-500,
+        .dark-mode .text-blue-700 {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-xl mx-auto my-8 bg-white shadow-xl rounded-lg p-8">
+        <h1 class="text-2xl font-bold mb-4">OpenDyslexic Text Converter</h1>
+        <textarea id="inputText" class="w-full h-32 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-OpenDyslexic mb-4"></textarea>
+        <div class="flex flex-wrap gap-2 mb-4">
+            <button onclick="pasteFromClipboard()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-clipboard mr-2"></i> Paste from Clipboard</button>
+            <button onclick="convertToOpenDyslexic()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-file-import mr-2"></i> Convert to OpenDyslexic</button>
+            <button onclick="convertToADHD()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-brain mr-2"></i> Convert for ADHD Readers</button>
+            <button onclick="togglePastel()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-paint-brush mr-2"></i> Toggle Pastel</button>
+            <button onclick="toggleInvert()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-adjust mr-2"></i> Toggle Invert</button>
+            <button onclick="toggleFontSize('increase')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-search-plus mr-2"></i> Increase Text Size</button>
+            <button onclick="toggleFontSize('decrease')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-search-minus mr-2"></i> Decrease Text Size</button>
+            <button id="readButton" onclick="toggleReadText()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"><i class="fas fa-volume-up mr-2"></i> Read Text</button>
+            <select id="speechLanguage" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <option value="en-US">US English (Female)</option>
+                <option value="en-GB">UK English (Female)</option>
+                <option value="es-ES">Spanish (Female)</option>
+                <option value="fr-FR">French (Female)</option>
+                <option value="de-DE">German (Female)</option>
+                <option value="it-IT">Italian (Female)</option>
+                <option value="pt-BR">Portuguese (Brazil, Female)</option>
+                <option value="ru-RU">Russian (Female)</option>
+                <option value="zh-CN">Mandarin Chinese (Female)</option>
+                <option value="ja-JP">Japanese (Female)</option>
+                <option value="ko-KR">Korean (Female)</option>
+                <option value="en-US-male">US English (Male)</option>
+                <option value="en-GB-male">UK English (Male)</option>
+                <option value="es-ES-male">Spanish (Male)</option>
+                <option value="fr-FR-male">French (Male)</option>
+                <option value="de-DE-male">German (Male)</option>
+                <option value="it-IT-male">Italian (Male)</option>
+                <option value="pt-BR-male">Portuguese (Brazil, Male)</option>
+                <option value="ru-RU-male">Russian (Male)</option>
+                <option value="zh-CN-male">Mandarin Chinese (Male)</option>
+                <option value="ja-JP-male">Japanese (Male)</option>
+                <option value="ko-KR-male">Korean (Male)</option>
+            </select>
+            <input type="range" id="speechRate" min="0.5" max="2" step="0.1" value="1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        </div>
+        <div id="output" class="text-justify font-OpenDyslexic" style="display: none;"></div>
+        <p class="text-gray-500 text-sm mt-4">By David Jenner | 2024</p>
+    </div>
+
+    <script>
+        let isReading = false;
+        let speech = new SpeechSynthesisUtterance();
+
+        function convertToOpenDyslexic() {
+            var inputText = document.getElementById("inputText").value;
+            var outputArea = document.getElementById("output");
+
+            outputArea.innerText = inputText;
+            outputArea.style.display = "block";
+            outputArea.style.fontFamily = "'OpenDyslexic', sans-serif"; // Apply OpenDyslexic font
+        }
+
+        function convertToADHD() {
+            var inputText = document.getElementById("inputText").value;
+            var words = inputText.split(" ");
+            var boldedWords = words.map(word => {
+                var halfLength = Math.floor(word.length / 2);
+                return `<span class="font-bold">${word.slice(0, halfLength)}</span>${word.slice(halfLength)}`;
+            });
+            var resultText = boldedWords.join(" ");
+            var outputArea = document.getElementById("output");
+            outputArea.innerHTML = resultText;
+            outputArea.style.display = "block";
+            outputArea.style.fontFamily = "'OpenDyslexic', sans-serif"; // Apply OpenDyslexic font
+        }
+
+        function togglePastel() {
+            document.body.classList.toggle("pastel");
+            document.getElementById("inputText").classList.toggle("pastel");
+            document.getElementById("output").classList.toggle("pastel");
+            document.body.classList.remove("dark-mode"); // Ensure dark mode is turned off when switching to pastel
+        }
+
+        function toggleInvert() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function toggleFontSize(action) {
+            var outputArea = document.getElementById("output");
+            var currentFontSize = parseFloat(window.getComputedStyle(outputArea, null).getPropertyValue('font-size'));
+
+            if (action === 'increase') {
+                outputArea.style.fontSize = (currentFontSize + 2) + 'px'; // Increase font size by 2px
+            } else if (action === 'decrease') {
+                outputArea.style.fontSize = (currentFontSize - 2) + 'px'; // Decrease font size by 2px
+            }
+        }
+
+        function pasteFromClipboard() {
+            navigator.clipboard.readText()
+                .then(text => {
+                    document.getElementById("inputText").value = text;
+                })
+                .catch(err => {
+                    console.error('Failed to read clipboard contents: ', err);
+                });
+        }
+
+        function toggleReadText() {
+            if (!isReading) {
+                startReading();
+            } else {
+                stopReading();
+            }
+        }
+
+        function startReading() {
+            var textToRead = document.getElementById("output").innerText;
+            speech.text = textToRead;
+            speech.lang = document.getElementById("speechLanguage").value; // Set the speech language
+            speech.rate = parseFloat(document.getElementById("speechRate").value); // Set the speech rate
+            window.speechSynthesis.speak(speech);
+            isReading = true;
+            document.getElementById("readButton").innerText = "Stop Reading";
+        }
+
+        function stopReading() {
+            window.speechSynthesis.cancel();
+            isReading = false;
+            document.getElementById("readButton").innerText = "Read Text";
+        }
+    </script>
+</body>
+</html>
