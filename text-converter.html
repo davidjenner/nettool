@@ -121,14 +121,36 @@
 
         function togglePastel() {
             var pastelClasses = ["pastel-bg-1", "pastel-bg-2", "pastel-bg-3"];
-            document.body.classList.toggle(pastelClasses[Math.floor(Math.random() * pastelClasses.length)]);
-            document.getElementById("inputText").classList.toggle(pastelClasses[Math.floor(Math.random() * pastelClasses.length)]);
-            document.getElementById("output").classList.toggle(pastelClasses[Math.floor(Math.random() * pastelClasses.length)]);
-            document.body.classList.remove("dark-mode");
+            var body = document.body;
+            var inputText = document.getElementById("inputText");
+            var outputArea = document.getElementById("output");
+
+            body.classList.remove("dark-mode");
+
+            // Toggle pastel background color
+            var randomPastelClass = pastelClasses[Math.floor(Math.random() * pastelClasses.length)];
+            body.classList.toggle(randomPastelClass);
+            inputText.classList.toggle(randomPastelClass);
+            outputArea.classList.toggle(randomPastelClass);
+
+            // Remove other pastel classes to avoid accumulation
+            pastelClasses.forEach(cls => {
+                if (cls !== randomPastelClass) {
+                    body.classList.remove(cls);
+                    inputText.classList.remove(cls);
+                    outputArea.classList.remove(cls);
+                }
+            });
         }
 
         function toggleInvert() {
-            document.body.classList.toggle("dark-mode");
+            var body = document.body;
+            var inputText = document.getElementById("inputText");
+            var outputArea = document.getElementById("output");
+
+            body.classList.toggle("dark-mode");
+            inputText.classList.remove("pastel-bg-1", "pastel-bg-2", "pastel-bg-3");
+            outputArea.classList.remove("pastel-bg-1", "pastel-bg-2", "pastel-bg-3");
         }
 
         function toggleFontSize(action) {
