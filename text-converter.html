@@ -95,12 +95,15 @@
 
         function convertToOpenDyslexic() {
             var inputText = document.getElementById("inputText").value;
+            var paragraphs = inputText.split("\n");
             var outputArea = document.getElementById("output");
-
-            outputArea.innerHTML = inputText;
+            var formattedText = paragraphs.map(paragraph => {
+                return `<p style="font-family: 'OpenDyslexic', sans-serif;">${paragraph}</p>`;
+            });
+            outputArea.innerHTML = formattedText.join("");
             outputArea.style.display = "block";
-            outputArea.style.fontFamily = "'OpenDyslexic', sans-serif"; // Apply OpenDyslexic font
         }
+
 
         function convertToADHD() {
             var inputText = document.getElementById("inputText").value;
