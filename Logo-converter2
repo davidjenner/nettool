@@ -3,7 +3,7 @@ Add-Type -AssemblyName System.Windows.Forms
 
 $MainForm                        = New-Object system.Windows.Forms.Form
 $MainForm.ClientSize             = New-Object System.Drawing.Point(800,400) # Updated width and height
-$MainForm.text                   = "Upload Files to PW"
+$MainForm.text                   = "Convert Logos to PNGs"
 $MainForm.TopMost                = $false
 $MainForm.icon                   = "C:\Data\PS\PW_Explorer Icon.ico"
 
@@ -15,7 +15,7 @@ $UploadImages.location           = New-Object System.Drawing.Point(23,26)
 $UploadImages.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
 $SuccessLabel                    = New-Object system.Windows.Forms.Label
-$SuccessLabel.Text               = "Success, your PNGs have downloaded ready for packaging!"
+$SuccessLabel.Text               = "Success, your PNGs have downloaded ready for application packaging!"
 $SuccessLabel.AutoSize           = $true
 $SuccessLabel.ForeColor          = [System.Drawing.Color]::Green
 $SuccessLabel.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',20) # Updated font size
