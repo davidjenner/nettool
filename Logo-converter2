@@ -1,0 +1,84 @@
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.Application]::EnableVisualStyles()
+
+$MainForm                        = New-Object system.Windows.Forms.Form
+$MainForm.ClientSize             = New-Object System.Drawing.Point(800,400) # Updated width and height
+$MainForm.text                   = "Upload Files to PW"
+$MainForm.TopMost                = $false
+$MainForm.icon                   = "C:\Data\PS\PW_Explorer Icon.ico"
+
+$UploadImages                    = New-Object system.Windows.Forms.Button
+$UploadImages.text               = "Upload Image"
+$UploadImages.width              = 336
+$UploadImages.height             = 93
+$UploadImages.location           = New-Object System.Drawing.Point(23,26)
+$UploadImages.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$SuccessLabel                    = New-Object system.Windows.Forms.Label
+$SuccessLabel.Text               = "Success, your PNGs have downloaded ready for packaging!"
+$SuccessLabel.AutoSize           = $true
+$SuccessLabel.ForeColor          = [System.Drawing.Color]::Green
+$SuccessLabel.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',20) # Updated font size
+$SuccessLabel.Visible            = $false
+$SuccessLabel.Location           = New-Object System.Drawing.Point(23,130)
+$SuccessLabel.MaximumSize        = New-Object System.Drawing.Size(700, 0) # Wrap text after 700 pixels width
+
+$MainForm.controls.AddRange(@($UploadImages, $SuccessLabel))
+
+# Logic for handling image upload
+$UploadImages.Add_Click({
+    $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+    $openFileDialog.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tiff;*.svg;*.webp)|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tiff;*.svg;*.webp"
+    $result = $openFileDialog.ShowDialog()
+    if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
+        $selectedFile = $openFileDialog.FileName
+        # Your logic for handling the selected image goes here
+        Write-Host "Selected file: $selectedFile"
+        
+        # Load the image
+        $originalImage = [System.Drawing.Image]::FromFile($selectedFile)
+        
+        # Calculate dimensions for resizing (512x512)
+        $scaleFactor512 = [Math]::Min(512.0 / $originalImage.Width, 512.0 / $originalImage.Height)
+        $newWidth512 = [Math]::Round($originalImage.Width * $scaleFactor512)
+        $newHeight512 = [Math]::Round($originalImage.Height * $scaleFactor512)
+        
+        # Create a resized image (512x512)
+        $resized512Image = New-Object System.Drawing.Bitmap 512, 512
+        $graphic512 = [System.Drawing.Graphics]::FromImage($resized512Image)
+        $graphic512.Clear([System.Drawing.Color]::White) # Fill transparent background with white
+        $graphic512.DrawImage($originalImage, 0, 0, $newWidth512, $newHeight512)
+        $graphic512.Dispose()
+        
+        # Save the resized image (512x512)
+        $savePath512 = [System.IO.Path]::ChangeExtension($selectedFile, ".512x512.png")
+        $resized512Image.Save($savePath512, [System.Drawing.Imaging.ImageFormat]::Png)
+        
+        # Calculate dimensions for resizing (256x256)
+        $scaleFactor256 = [Math]::Min(256.0 / $originalImage.Width, 256.0 / $originalImage.Height)
+        $newWidth256 = [Math]::Round($originalImage.Width * $scaleFactor256)
+        $newHeight256 = [Math]::Round($originalImage.Height * $scaleFactor256)
+        
+        # Create a resized image (256x256)
+        $resized256Image = New-Object System.Drawing.Bitmap 256, 256
+        $graphic256 = [System.Drawing.Graphics]::FromImage($resized256Image)
+        $graphic256.Clear([System.Drawing.Color]::White) # Fill transparent background with white
+        $graphic256.DrawImage($originalImage, 0, 0, $newWidth256, $newHeight256)
+        $graphic256.Dispose()
+        
+        # Save the resized image (256x256)
+        $savePath256 = [System.IO.Path]::ChangeExtension($selectedFile, ".256x256.png")
+        $resized256Image.Save($savePath256, [System.Drawing.Imaging.ImageFormat]::Png)
+        
+        # Dispose the images
+        $originalImage.Dispose()
+        $resized512Image.Dispose()
+        $resized256Image.Dispose()
+        
+        # Show success message
+        $SuccessLabel.Visible = $true
+    }
+})
+
+# Show the form
+$MainForm.ShowDialog()
