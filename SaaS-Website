@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YourSaaS | Simplifying Your Workflow</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.iconmon.com/2.3.0/css/iconmon.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+    .gradient-bg {
+      background: linear-gradient(to right, #4F3BA9, #CB429F);
+    }
+    .testimonial-bg {
+      background: url('https://source.unsplash.com/featured/?testimonial') center/cover no-repeat;
+    }
+    .newsletter-bg {
+      background: url('https://source.unsplash.com/featured/?newsletter') center/cover no-repeat;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-md py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <h1 class="text-xl font-bold">YourSaaS</h1>
+      <ul class="flex space-x-4">
+        <li><a href="#features" class="text-gray-700 hover:text-blue-500">Features</a></li>
+        <li><a href="#pricing" class="text-gray-700 hover:text-blue-500">Pricing</a></li>
+        <li><a href="#contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
+        <li><button id="signUpShowBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg">Sign Up</button></li>
+        <li><button id="signInShowBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg">Sign In</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="gradient-bg text-white py-80 px-4">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to YourSaaS</h1>
+      <p class="text-lg md:text-xl mb-8">Simplify your workflow with our powerful suite of tools.</p>
+      <button id="signUpShowBtn" class="bg-white text-blue-700 font-bold py-2 px-8 rounded-full shadow-lg hover:bg-blue-200 hover:text-blue-900">Get Started</button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Key Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <i class="iconmon-icon" data-icon="icon-checkmark-outline"></i>
+          <h3 class="text-xl font-semibold mb-2">Feature 1</h3>
+          <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <i class="iconmon-icon" data-icon="icon-checkmark-outline"></i>
+          <h3 class="text-xl font-semibold mb-2">Feature 2</h3>
+          <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <i class="iconmon-icon" data-icon="icon-checkmark-outline"></i>
+          <h3 class="text-xl font-semibold mb-2">Feature 3</h3>
+          <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Testimonials Section -->
+  <section class="testimonial-bg py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-white">What Our Customers Say</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-gray-700">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed urna sed justo dapibus scelerisque ut vel diam."</p>
+          <p class="text-gray-700 font-semibold mt-2">- John Doe, CEO at Company</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-gray-700">"Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus malesuada."</p>
+          <p class="text-gray-700 font-semibold mt-2">- Jane Smith, COO at Corporation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Sections with Images -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">More Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <img src="https://source.unsplash.com/featured/?technology" alt="Feature 1" class="w-full h-48 object-cover mb-4 rounded-md">
+          <h3 class="text-xl font-semibold mb-2">Feature 1</h3>
+          <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <img src="https://source.unsplash.com/featured/?software" alt="Feature 2" class="w-full h-48 object-cover mb-4 rounded-md">
+          <h3 class="text-xl font-semibold mb-2">Feature 2</h3>
+          <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <img src="https://source.unsplash.com/featured/?business" alt="Feature 3" class="w-full h-48 object-cover mb-4 rounded-md">
+          <h3 class="text-xl font-semibold mb-2">Feature 3</h3>
+          <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+          <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Pricing Plans</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Tier 1 -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <h3 class="text-xl font-semibold mb-2">Basic</h3>
+              <ul class="text-gray-700 mb-4">
+                <li>Feature 1</li>
+                <li>Feature 2</li>
+                <li>Feature 3</li>
+              </ul>
+              <p class="text-2xl font-bold mb-4">$10<span class="text-lg font-normal">/month</span></p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg block mx-auto">Get Started</button>
+            </div>
+            <!-- Tier 2 -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <h3 class="text-xl font-semibold mb-2">Pro</h3>
+              <ul class="text-gray-700 mb-4">
+                <li>Feature 1</li>
+                <li>Feature 2</li>
+                <li>Feature 3</li>
+                <li>Feature 4</li>
+              </ul>
+              <p class="text-2xl font-bold mb-4">$20<span class="text-lg font-normal">/month</span></p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg block mx-auto">Get Started</button>
+            </div>
+            <!-- Tier 3 -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <h3 class="text-xl font-semibold mb-2">Enterprise</h3>
+              <ul class="text-gray-700 mb-4">
+                <li>Feature 1</li>
+                <li>Feature 2</li>
+                <li>Feature 3</li>
+                <li>Feature 4</li>
+                <li>Feature 5</li>
+              </ul>
+              <p class="text-2xl font-bold mb-4">$30<span class="text-lg font-normal">/month</span></p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg block mx-auto">Get Started</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-gray-100 py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Contact Us</h2>
+      <p class="text-lg text-center mb-8">Have a question or need support? Reach out to us!</p>
+      <form class="max-w-lg mx-auto">
+        <div class="flex flex-wrap mb-4 -mx-2">
+          <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+            <input type="text" placeholder="Your Name" class="w-full border border-gray-400 px-4 py-2 rounded-md">
+          </div>
+          <div class="w-full md:w-1/2 px-2">
+            <input type="email" placeholder="Your Email" class="w-full border border-gray-400 px-4 py-2 rounded-md">
+          </div>
+        </div>
+        <div class="w-full px-2 mb-4">
+          <textarea placeholder="Your Message" rows="6" class="w-full border border-gray-400 px-4 py-2 rounded-md"></textarea>
+        </div>
+        <div class="text-center">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-bg py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+          <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-white">Subscribe to Our Newsletter</h2>
+          <form class="max-w-lg mx-auto">
+            <div class="flex flex-wrap mb-4 -mx-2">
+              <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+                <input type="text" placeholder="Your Name" class="w-full border border-gray-400 px-4 py-2 rounded-md">
+              </div>
+              <div class="w-full md:w-1/2 px-2">
+                <input type="email" placeholder="Your Email" class="w-full border border-gray-400 px-4 py-2 rounded-md">
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-800 text-white py-8 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">About</h3>
+          <ul class="text-gray-400">
+            <li><a href="#" class="hover:text-white">Company</a></li>
+            <li><a href="#" class="hover:text-white">Team</a></li>
+            <li><a href="#" class="hover:text-white">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Support</h3>
+          <ul class="text-gray-400">
+            <li><a href="#" class="hover:text-white">FAQ</a></li>
+            <li><a href="#" class="hover:text-white">Contact</a></li>
+            <li><a href="#" class="hover:text-white">Documentation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Legal</h3>
+          <ul class="text-gray-400">
+            <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // User data
+    let users = [];
+
+    // Sign Up functionality
+    const signUpSection = document.getElementById('signUpSection');
+    const signUpShowBtn = document.getElementById('signUpShowBtn');
+    const newUsernameInput = document.getElementById('newUsernameInput');
+    const newPasswordInput = document.getElementById('newPasswordInput');
+    const signUpBtn = document.getElementById('signUpBtn');
+
+    signUpShowBtn.addEventListener('click', () => {
+      signUpSection.classList.remove('hidden');
+    });
+
+    signUpBtn.addEventListener('click', () => {
+      const newUsername = newUsernameInput.value.trim();
+      const newPassword = newPasswordInput.value.trim();
+
+      if (newUsername && newPassword) {
+        if (users.some(user => user.username === newUsername)) {
+          alert('Username already exists. Please choose a different username.');
+        } else {
+          users.push({ username: newUsername, password: newPassword, notes: [] });
+          signUpSection.classList.add('hidden');
+          alert('Sign up successful! You can now log in.');
+        }
+      } else {
+        alert('Please enter a username and password.');
+      }
+    });
+
+    // Login functionality
+    const loginBtn = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('usernameInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginSection = document.getElementById('loginSection');
+    const userSection = document.getElementById('userSection');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+
+    loginBtn.addEventListener('click', () => {
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+      const user = users.find(u => u.username === username && u.password === password);
+
+      if (user) {
+        loginSection.classList.add('hidden');
+        userSection.classList.remove('hidden');
+        usernameDisplay.textContent = username;
+        renderNotes(user.notes);
+      } else {
+        alert('Invalid username or password');
+      }
+    });
+
+    // Logout functionality
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    logoutBtn.addEventListener('click', () => {
+      loginSection.classList.remove('hidden');
+      userSection.classList.add('hidden');
+      usernameInput.value = '';
+      passwordInput.value = '';
+    });
+
+    // Notes functionality
+    const notesList = document.getElementById('notesList');
+    const newNoteInput = document.getElementById('newNoteInput');
+    const addNoteBtn = document.getElementById('addNoteBtn');
+
+    function renderNotes(notes) {
+      notesList.innerHTML = '';
+      notes.forEach(note => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        notesList.appendChild(li);
+      });
+    }
+
+    addNoteBtn.addEventListener('click', () => {
+      const newNote = newNoteInput.value.trim();
+      if (newNote) {
+        const currentUser = users.find(u => u.username === usernameDisplay.textContent);
+        currentUser.notes.push(newNote);
+        renderNotes(currentUser.notes);
+        newNoteInput.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
