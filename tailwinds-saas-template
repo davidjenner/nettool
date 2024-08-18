@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AI Website</title>
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg">
+    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+      <a href="#" class="text-lg font-bold text-gray-800">AI Website</a>
+      <ul class="flex">
+        <li><a href="#" class="px-4 py-2 text-gray-800 hover:text-gray-600">Home</a></li>
+        <li><a href="#" class="px-4 py-2 text-gray-800 hover:text-gray-600">About</a></li>
+        <li><a href="#" class="px-4 py-2 text-gray-800 hover:text-gray-600">Services</a></li>
+        <li><a href="#" class="px-4 py-2 text-gray-800 hover:text-gray-600">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-gray-800 text-white py-20">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold mb-4">Welcome to AI Website</h1>
+      <p class="text-lg mb-8">We provide cutting-edge AI solutions for businesses and individuals.</p>
+      <a href="#" class="bg-white text-gray-800 py-2 px-4 rounded-full hover:bg-gray-200">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="bg-white py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8">Our Services</h2>
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/3 px-4 mb-8">
+          <div class="bg-gray-200 rounded-lg p-8">
+            <h3 class="text-xl font-bold mb-4">Machine Learning</h3>
+            <p class="text-gray-800">We offer machine learning solutions to help businesses make data-driven decisions.</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 px-4 mb-8">
+          <div class="bg-gray-200 rounded-lg p-8">
+            <h3 class="text-xl font-bold mb-4">Natural Language Processing</h3>
+            <p class="text-gray-800">Our NLP solutions help businesses analyze and understand customer feedback and sentiment.</p>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 px-4 mb-8">
+          <div class="bg-gray-200 rounded-lg p-8">
+            <h3 class="text-xl font-bold mb-4">Computer Vision</h3>
+            <p class="text-gray-800">We provide computer vision solutions to help businesses automate processes and improve efficiency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="bg-gray-800 text-white py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-4">Ready to get started?</h2>
+      <p class="text-lg mb-8">Contact us today to learn more about our AI solutions.</p>
+      <a href="#" class="bg-white text-gray-800 py-2 px-4 rounded-full hover:bg-gray-200">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 py-8">
+    <div class="container mx-auto px-4">
+      <p class="text-gray-800 text-center">&copy; 2021 AI Website. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
